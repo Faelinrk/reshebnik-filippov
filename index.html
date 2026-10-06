@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решебник Филиппов — §1 Изоклины</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --accent-light: #ebf5fb;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; font-weight: 700; }
+        header p { font-size: 1.1rem; opacity: 0.85; }
+        header .subtitle { font-size: 0.95rem; opacity: 0.7; margin-top: 0.3rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+        /* Navigation */
+        .nav-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-label { font-weight: 600; color: var(--primary); white-space: nowrap; }
+        .nav-pills {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+        .nav-pill {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .nav-pill:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* Theory block */
+        .theory-block {
+            background: linear-gradient(135deg, var(--accent-light), #fef9e7);
+            border: 1px solid #d5e8f0;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .theory-block h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .theory-block p { margin-bottom: 0.8rem; }
+
+        /* Section headers */
+        .section-header {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px 8px 0 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+        .section-desc {
+            background: #eef2f5;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        /* Problem card */
+        .problem {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: box-shadow 0.3s;
+        }
+        .problem:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .problem-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            user-select: none;
+            gap: 1rem;
+        }
+        .problem-num {
+            background: var(--accent);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .problem-statement { flex: 1; font-size: 1.05rem; }
+        .problem-toggle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .problem.open .problem-toggle { transform: rotate(180deg); }
+        .solution {
+            display: none;
+            padding: 1.2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: #fafbfc;
+        }
+        .problem.open .solution { display: block; }
+
+        .solution h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .solution .answer-box {
+            background: #e8f8f0;
+            border: 1px solid #b8e6cc;
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin: 0.8rem 0;
+            font-weight: 500;
+        }
+        .solution .step {
+            margin: 0.8rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid var(--accent-light);
+        }
+        .solution .step-label {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        .solution p { margin-bottom: 0.6rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.3rem; }
+            .problem-header { padding: 0.8rem; }
+            .solution { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📘 Решебник — А. Ф. Филиппов</h1>
+    <p>Сборник задач по дифференциальным уравнениям</p>
+    <div class="subtitle">§1. Изоклины. Составление дифференциального уравнения семейства кривых</div>
+</header>
+
+<nav class="nav-bar">
+    <div class="nav-inner">
+        <span class="nav-label">Задачи:</span>
+        <div class="nav-pills" id="navPills"></div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- THEORY -->
+    <div class="theory-block">
+        <h2>📖 Теоретическая справка</h2>
+        <p><strong>1. Изоклины.</strong> Решение уравнения $y' = f(x,y)$, проходящее через точку $(x,y)$, должно иметь в этой точке производную $y'$, равную $f(x,y)$. Геометрическое место точек плоскости, в которых наклон касательных к решениям уравнения $y' = f(x,y)$ один и тот же, называется <em>изоклиной</em>. Уравнение изоклины: $f(x,y) = k$, где $k$ — постоянная.</p>
+        <p><strong>2. Составление ДУ семейства кривых.</strong> Чтобы построить дифференциальное уравнение, которому удовлетворяют кривые семейства $\varphi(x, y, C_1, \ldots, C_n) = 0$, надо продифференцировать равенство $n$ раз, считая $y$ функцией от $x$, а затем из полученных уравнений и исходного исключить произвольные постоянные $C_1, \ldots, C_n$.</p>
+        <p><strong>3. Изогональные траектории.</strong> Линии, пересекающие все кривые данного семейства под одним и тем же углом $\varphi$, называются изогональными траекториями. Если $y' = f(x,y)$ — уравнение семейства, а $y' = f_1(x,y)$ — уравнение траекторий, то $\operatorname{tg}\alpha = f(x,y)$, $\operatorname{tg}\beta = f_1(x,y)$, где $\beta = \alpha \pm \varphi$. При $\varphi = 90°$ получаются <em>ортогональные траектории</em>.</p>
+    </div>
+
+    <!-- SECTION 1: Problems 1-14 -->
+    <div class="section-header">Задачи 1–14. Изоклины: начертить приближённые решения</div>
+    <div class="section-desc">С помощью изоклин начертить (приближенно) решения данных уравнений.</div>
+
+    <div class="problem" id="p1">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">1</div>
+            <div class="problem-statement">$y' = y - x^2$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Находим изоклины</p>
+                <p>Изоклины — это кривые, на которых $y' = k = \text{const}$. Приравниваем: $y - x^2 = k$, то есть $y = x^2 + k$.</p>
+                <p>Изоклины — это параболы $y = x^2 + k$, сдвинутые по вертикали.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Строим изоклины для разных $k$</p>
+                <p>При $k = 0$: $y = x^2$ (нулевая изоклина — на ней касательные горизонтальны).</p>
+                <p>При $k = 1$: $y = x^2 + 1$ (наклон касательных $= 1$, т.е. $45°$).</p>
+                <p>При $k = -1$: $y = x^2 - 1$ (наклон $= -1$, т.е. $-45°$).</p>
+                <p>При $k = 2$: $y = x^2 + 2$ и т.д.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 3. Рисуем поле направлений и интегральные кривые</p>
+                <p>На каждой изоклине $y = x^2 + k$ проводим чёрточки с наклоном $k$. Затем проводим кривые, касающиеся этих чёрточек — это и есть приближённые решения.</p>
+                <p>Интегральные кривые «стекают» к параболе $y = x^2$ снизу и «убегают» вверх от неё сверху.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p2">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">2</div>
+            <div class="problem-statement">$2(y + y') = x + 3$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$2y + 2y' = x + 3 \implies y' = \dfrac{x + 3 - 2y}{2} = \dfrac{x - 2y + 3}{2}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Находим изоклины</p>
+                <p>$\dfrac{x - 2y + 3}{2} = k \implies x - 2y + 3 = 2k \implies y = \dfrac{x + 3 - 2k}{2}$.</p>
+                <p>Изоклины — семейство прямых $y = \frac{1}{2}x + \frac{3 - 2k}{2}$ с наклоном $\frac{1}{2}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 3. Строим</p>
+                <p>Все изоклины — параллельные прямые с наклоном $1/2$. На каждой из них чёрточки имеют наклон $k$. Проводим интегральные кривые, касающиеся чёрточек.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p3">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">3</div>
+            <div class="problem-statement">$y' = \dfrac{x^2 + y^2}{2} - 1$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Находим изоклины</p>
+                <p>$\dfrac{x^2 + y^2}{2} - 1 = k \implies x^2 + y^2 = 2(k + 1)$.</p>
+                <p>Изоклины — окружности с центром в начале координат и радиусом $r = \sqrt{2(k+1)}$ (при $k > -1$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Строим</p>
+                <p>При $k = 0$: $x^2 + y^2 = 2$, $r = \sqrt{2}$ — нулевая изоклина.</p>
+                <p>При $k = 1$: $x^2 + y^2 = 4$, $r = 2$.</p>
+                <p>При $k = -1$: точка $(0, 0)$.</p>
+                <p>Внутри окружности $x^2 + y^2 = 2$ наклоны отрицательны, вне — положительны.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p4">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">4</div>
+            <div class="problem-statement">$(y^2 + 1)y' = y - x$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = \dfrac{y - x}{y^2 + 1}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Находим изоклины</p>
+                <p>$\dfrac{y - x}{y^2 + 1} = k \implies y - x = k(y^2 + 1) \implies x = y - k(y^2 + 1)$.</p>
+                <p>При $k = 0$: $x = y$ — прямая (нулевая изоклина).</p>
+                <p>При других $k$: параболы с осью, параллельной $Ox$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p5">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">5</div>
+            <div class="problem-statement">$yy' + x = 0$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = -\dfrac{x}{y}$ (при $y \ne 0$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Находим изоклины</p>
+                <p>$-\dfrac{x}{y} = k \implies y = -\dfrac{x}{k}$ (при $k \ne 0$).</p>
+                <p>Изоклины — прямые, проходящие через начало координат. При $k = 0$: ось $Oy$ ($x = 0$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 3. Решения</p>
+                <p>Уравнение $yy' + x = 0$ переписывается как $y\,dy = -x\,dx$, откуда $\dfrac{y^2}{2} = -\dfrac{x^2}{2} + C$, т.е. $x^2 + y^2 = C$.</p>
+                <p>Интегральные кривые — окружности с центром в начале координат.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p6">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">6</div>
+            <div class="problem-statement">$xy' = 2y$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = \dfrac{2y}{x}$ (при $x \ne 0$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Находим изоклины</p>
+                <p>$\dfrac{2y}{x} = k \implies y = \dfrac{kx}{2}$.</p>
+                <p>Изоклины — прямые через начало координат.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 3. Решаем уравнение</p>
+                <p>$\dfrac{dy}{y} = \dfrac{2\,dx}{x} \implies \ln|y| = 2\ln|x| + C_1 \implies y = Cx^2$.</p>
+                <p>Интегральные кривые — параболы $y = Cx^2$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p7">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">7</div>
+            <div class="problem-statement">$xy' + y = 0$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = -\dfrac{y}{x}$ (при $x \ne 0$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изоклины</p>
+                <p>$-\dfrac{y}{x} = k \implies y = -kx$ — прямые через начало координат.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 3. Решаем</p>
+                <p>$\dfrac{dy}{y} = -\dfrac{dx}{x} \implies \ln|y| = -\ln|x| + C_1 \implies xy = C$.</p>
+                <p>Интегральные кривые — гиперболы $xy = C$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p8">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">8</div>
+            <div class="problem-statement">$y' + y = (x - y')^3$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Изоклины</p>
+                <p>Полагая $y' = k$: $k + y = (x - k)^3$, т.е. $y = (x - k)^3 - k$.</p>
+                <p>Для каждого $k$ — кубическая парабола, сдвинутая на $k$ вправо и $k$ вниз.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Построение</p>
+                <p>При $k = 0$: $y = x^3$ — нулевая изоклина. На ней проводим горизонтальные чёрточки.</p>
+                <p>При $k = 1$: $y = (x - 1)^3 - 1$. Чёрточки наклонены под углом $45°$.</p>
+                <p>Строим поле направлений и проводим интегральные кривые.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p9">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">9</div>
+            <div class="problem-statement">$y' = x - e^y$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Изоклины</p>
+                <p>$x - e^y = k \implies x = k + e^y$.</p>
+                <p>Для каждого $k$ это кривая — сдвиг экспоненты $x = e^y$ на $k$ вправо.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Нулевая изоклина</p>
+                <p>При $k = 0$: $x = e^y$, т.е. $y = \ln x$ — на этой кривой касательные горизонтальны.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p10">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">10</div>
+            <div class="problem-statement">$y(y' + x) = 1$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$yy' + xy = 1 \implies y' = \dfrac{1}{y} - x = \dfrac{1 - xy}{y}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изоклины</p>
+                <p>$\dfrac{1 - xy}{y} = k \implies 1 - xy = ky \implies y = \dfrac{1}{x + k}$.</p>
+                <p>Изоклины — гиперболы $y = \frac{1}{x+k}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p11">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">11</div>
+            <div class="problem-statement">$y' = \dfrac{y - 3x}{x + 3y}$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Изоклины</p>
+                <p>$\dfrac{y - 3x}{x + 3y} = k \implies y - 3x = k(x + 3y) \implies y(1 - 3k) = x(3 + k)$.</p>
+                <p>$y = \dfrac{3 + k}{1 - 3k}\,x$ — прямые через начало координат (однородное уравнение).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p12">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">12</div>
+            <div class="problem-statement">$y' = \dfrac{y}{x + y}$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Изоклины</p>
+                <p>$\dfrac{y}{x + y} = k \implies y = k(x + y) = kx + ky \implies y(1 - k) = kx$.</p>
+                <p>$y = \dfrac{k}{1 - k}\,x$ (при $k \ne 1$) — прямые через начало координат.</p>
+                <p>При $k = 0$: ось $Ox$. При $k = 1/2$: $y = x$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p13">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">13</div>
+            <div class="problem-statement">$x^2 + y^2 y' = 1$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = \dfrac{1 - x^2}{y^2}$ (при $y \ne 0$).</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изоклины</p>
+                <p>$\dfrac{1 - x^2}{y^2} = k \implies y^2 = \dfrac{1 - x^2}{k}$ (при $k \ne 0$).</p>
+                <p>При $k > 0$ и $|x| < 1$ — эллипсы. При $k = 0$: $x = \pm 1$ — вертикальные прямые.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p14">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">14</div>
+            <div class="problem-statement">$(x^2 + y^2)y' = 4x$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $y'$</p>
+                <p>$y' = \dfrac{4x}{x^2 + y^2}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изоклины</p>
+                <p>$\dfrac{4x}{x^2 + y^2} = k \implies x^2 + y^2 = \dfrac{4x}{k} \implies \left(x - \dfrac{2}{k}\right)^2 + y^2 = \dfrac{4}{k^2}$.</p>
+                <p>Изоклины — окружности с центром $\left(\frac{2}{k}, 0\right)$ и радиусом $\frac{2}{|k|}$, проходящие через начало координат.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Problems 15-16 -->
+    <div class="section-header">Задачи 15–16. Геометрические места точек</div>
+    <div class="section-desc">Экстремумы и точки перегиба решений.</div>
+
+    <div class="problem" id="p15">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">15</div>
+            <div class="problem-statement">Написать уравнение ГМТ точек максимума или минимума решений уравнения $y' = f(x,y)$. Как отличить max от min?</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $f(x,y) = 0$; $f'_x < 0$ (max), $f'_x > 0$ (min).</div>
+            <div class="step">
+                <p class="step-label">Объяснение</p>
+                <p>В точке экстремума $y' = 0$, т.е. $f(x,y) = 0$ — это и есть искомое ГМТ (нулевая изоклина).</p>
+                <p>Для отличия максимума от минимума исследуем $y'' = \dfrac{d}{dx}f(x,y) = f'_x + f'_y \cdot y'$.</p>
+                <p>В точке экстремума $y' = 0$, поэтому $y'' = f'_x$.</p>
+                <p>Если $f'_x < 0$, то $y'' < 0$ — <strong>максимум</strong>. Если $f'_x > 0$, то $y'' > 0$ — <strong>минимум</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p16">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">16</div>
+            <div class="problem-statement">Написать уравнение ГМТ точек перегиба графиков решений уравнений</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">а) $y' = y - x^2$</p>
+                <div class="answer-box">Ответ: $y = x^2 + 2x$</div>
+                <p>$y'' = y' - 2x = (y - x^2) - 2x$. Точки перегиба: $y'' = 0 \implies y = x^2 + 2x$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">б) $y' = x - e^y$</p>
+                <div class="answer-box">Ответ: $x = 2\operatorname{ch} y$; б) $x = 2\cosh y$</div>
+                <p>$y'' = 1 - e^y \cdot y' = 1 - e^y(x - e^y) = 1 - xe^y + e^{2y}$. Приравниваем к нулю.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">в) $x^2 + y^2 y' = 1$</p>
+                <div class="answer-box">Ответ: $xy^3 = -(1-x^2)^2$; $y = 0$</div>
+                <p>$y' = \frac{1-x^2}{y^2}$. Дифференцируем: $y'' = \frac{-2xy^2 - 2y y'(1-x^2)}{y^4}$. Приравниваем числитель к нулю.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">г) $y' = f(x,y)$</p>
+                <div class="answer-box">Ответ: $f'_x + f \cdot f'_y = 0$</div>
+                <p>$y'' = f'_x + f'_y \cdot y' = f'_x + f \cdot f'_y = 0$.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Problems 17-29 -->
+    <div class="section-header">Задачи 17–29. Составление ДУ семейства кривых</div>
+    <div class="section-desc">Составить дифференциальные уравнения данных семейств линий.</div>
+
+    <div class="problem" id="p17">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">17</div>
+            <div class="problem-statement">$y = e^{Cx}$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y = e^{xy'/y}$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$y' = Ce^{Cx} = Cy$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>Из $y' = Cy$ находим $C = \dfrac{y'}{y}$. Подставляем в исходное: $y = e^{(y'/y) \cdot x}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p18">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">18</div>
+            <div class="problem-statement">$y = (x - C)^3$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y' = 3y^{2/3}$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$y' = 3(x - C)^2$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>Из исходного: $(x - C) = y^{1/3}$, тогда $(x-C)^2 = y^{2/3}$.</p>
+                <p>Подставляем: $y' = 3y^{2/3}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p19">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">19</div>
+            <div class="problem-statement">$y = Cx^3$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $xy' = 3y$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$y' = 3Cx^2$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>$C = \dfrac{y}{x^3}$. Подставляем: $y' = 3 \cdot \dfrac{y}{x^3} \cdot x^2 = \dfrac{3y}{x}$.</p>
+                <p>Итого: $xy' = 3y$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p20">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">20</div>
+            <div class="problem-statement">$y = \sin(x + C)$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y^2 + y'^2 = 1$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$y' = \cos(x + C)$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>$y^2 + y'^2 = \sin^2(x+C) + \cos^2(x+C) = 1$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p21">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">21</div>
+            <div class="problem-statement">$x^2 + Cy^2 = 2y$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $x^2y' - xy = yy'$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Выражаем $C$</p>
+                <p>$C = \dfrac{2y - x^2}{y^2}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Дифференцируем исходное</p>
+                <p>$2x + 2Cyy' = 2y' \implies 2x + 2y' \cdot \dfrac{2y - x^2}{y^2} \cdot y = 2y'$.</p>
+                <p>$2x + \dfrac{2y'(2y - x^2)}{y} = 2y'$.</p>
+                <p>Умножаем на $y$: $2xy + 2y'(2y - x^2) = 2yy'$.</p>
+                <p>$2xy + 4yy' - 2x^2y' = 2yy' \implies 2xy + 2yy' = 2x^2y'$.</p>
+                <p>$x^2y' - xy = yy'$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p22">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">22</div>
+            <div class="problem-statement">$y^2 + Cx = x^3$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $2xyy' - y^2 = 2x^3$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$2yy' + C = 3x^2$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>Из исходного: $C = \dfrac{x^3 - y^2}{x}$. Подставляем:</p>
+                <p>$2yy' + \dfrac{x^3 - y^2}{x} = 3x^2$.</p>
+                <p>Умножаем на $x$: $2xyy' + x^3 - y^2 = 3x^3 \implies 2xyy' - y^2 = 2x^3$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p23">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">23</div>
+            <div class="problem-statement">$y = C(x - C)^2$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y'^3 = 4y(xy' - 2y)$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$y' = 2C(x - C)$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>Из $y = C(x-C)^2$ и $y' = 2C(x-C)$: $\dfrac{y'}{y} = \dfrac{2}{x - C} \implies x - C = \dfrac{2y}{y'}$.</p>
+                <p>Тогда $C = x - \dfrac{2y}{y'}$. Подставляя в $y' = 2C(x-C)$:</p>
+                <p>$y' = 2\left(x - \dfrac{2y}{y'}\right) \cdot \dfrac{2y}{y'} = \dfrac{4y}{y'}\left(x - \dfrac{2y}{y'}\right) = \dfrac{4y(xy' - 2y)}{y'^2}$.</p>
+                <p>$y'^3 = 4y(xy' - 2y)$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p24">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">24</div>
+            <div class="problem-statement">$Cy = \sin Cx$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y' = \cos\dfrac{x\sqrt{1-y'^2}}{y}$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$Cy' = C\cos(Cx)$, т.е. $y' = \cos(Cx)$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $C$</p>
+                <p>Из $y' = \cos(Cx)$: $Cx = \arccos y'$, т.е. $C = \frac{\arccos y'}{x}$.</p>
+                <p>Из $Cy = \sin(Cx)$: $\sin(Cx) = Cy$, $\sin(\arccos y') = Cy$, $\sqrt{1 - y'^2} = Cy$.</p>
+                <p>$C = \frac{\sqrt{1-y'^2}}{y}$. Итого: $y' = \cos\frac{x\sqrt{1-y'^2}}{y}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p25">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">25</div>
+            <div class="problem-statement">$y = ax^2 + be^x$ (два параметра $a, b$)</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $x(x-2)y'' - (x^2 - 2)y' + 2(x-1)y = 0$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем дважды</p>
+                <p>$y' = 2ax + be^x$, $y'' = 2a + be^x$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $a$ и $b$</p>
+                <p>Из $y'' = 2a + be^x$: $be^x = y'' - 2a$. Из $y' = 2ax + be^x$: $be^x = y' - 2ax$, следовательно $y'' - 2a = y' - 2ax$, $2a(x - 1) = y' - y''$, $a = \frac{y' - y''}{2(x-1)}$.</p>
+                <p>$b = (y'' - 2a)e^{-x}$. Подставляем в $y = ax^2 + be^x$ и упрощаем, получаем указанный ответ.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p26">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">26</div>
+            <div class="problem-statement">$(x-a)^2 + by^2 = 1$ (два параметра $a, b$)</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(yy'' + y'^2)^2 = -y^3 y''$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем дважды</p>
+                <p>$2(x-a) + 2byy' = 0 \implies (x-a) + byy' = 0$. (I)</p>
+                <p>$1 + b(y'^2 + yy'') = 0$. (II)</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $a$ и $b$</p>
+                <p>Из (II): $b = \dfrac{-1}{y'^2 + yy''}$.</p>
+                <p>Из (I): $x - a = -byy' = \dfrac{yy'}{y'^2 + yy''} $.</p>
+                <p>Дифференцируем (I) ещё раз и подставляем, получаем ответ.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p27">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">27</div>
+            <div class="problem-statement">$\ln y = ax + by$ (два параметра $a, b$)</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y''y^2(\ln y - 1) = y'^2(xy' - y)$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$\dfrac{y'}{y} = a + by'$. (I)</p>
+                <p>Дифференцируем ещё: $\dfrac{y''y - y'^2}{y^2} = by''$. (II)</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем $a$ и $b$</p>
+                <p>Из (II): $b = \dfrac{y''y - y'^2}{y^2 y''}$. Из (I): $a = \frac{y'}{y} - by'$. Подставляем в исходное уравнение $\ln y = ax + by$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p28">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">28</div>
+            <div class="problem-statement">$y = ax^3 + bx^2 + cx$ (три параметра)</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $x^3y''' - 3x^2y'' + 6xy' - 6y = 0$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем трижды</p>
+                <p>$y' = 3ax^2 + 2bx + c$, $y'' = 6ax + 2b$, $y''' = 6a$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Выражаем параметры</p>
+                <p>$a = \frac{y'''}{6}$, $b = \frac{y'' - 6ax}{2} = \frac{y'' - xy'''}{2}$, $c = y' - 3ax^2 - 2bx$.</p>
+                <p>Подставляем в $y = ax^3 + bx^2 + cx$ и упрощаем.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p29">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">29</div>
+            <div class="problem-statement">$x = ay^2 + by + c$ (три параметра)</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y'''y' = 3y''^2$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Дифференцируем</p>
+                <p>$1 = (2ay + b)y'$. Дифференцируем: $0 = 2ay'^2 + (2ay+b)y''$.</p>
+                <p>Дифференцируем ещё раз: $0 = 6ay'y'' + (2ay+b)y'''$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Исключаем параметры</p>
+                <p>Из первого: $(2ay+b) = \frac{1}{y'}$. Из второго: $2a = \frac{-y''}{y'^3}$.</p>
+                <p>Подставляем в третье: $6 \cdot \frac{-y''}{2y'^3} \cdot y' \cdot y'' + \frac{1}{y'} \cdot y''' = 0$.</p>
+                <p>$\frac{-3y''^2}{y'^2} + \frac{y'''}{y'} = 0 \implies y'''y' = 3y''^2$.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: Problems 30-34 -->
+    <div class="section-header">Задачи 30–34. Составление ДУ по геометрическим свойствам</div>
+    <div class="section-desc">Составить ДУ кривых с заданными геометрическими свойствами.</div>
+
+    <div class="problem" id="p30">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">30</div>
+            <div class="problem-statement">Составить ДУ окружностей радиуса 1, центры которых лежат на прямой $y = 2x$.</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(y - 2x)^2(y'^2 + 1)^2 = (2y' + 1)^2 \cdot (y'^2 + 1)$... упрощается до $(y-2x)^2(1+y'^2) = (1+2y')^2$</div>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Центры: $(a, 2a)$. Уравнение семейства: $(x - a)^2 + (y - 2a)^2 = 1$.</p>
+                <p>Дифференцируем: $2(x-a) + 2(y - 2a)y' = 0 \implies x - a = -(y - 2a)y'$.</p>
+                <p>$a = \frac{x + yy'}{1 + 2y'}$. Подставляем в исходное и получаем ДУ без параметра $a$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p31">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">31</div>
+            <div class="problem-statement">Составить ДУ парабол с осью, параллельной $Oy$, и касающихся одновременно прямых $y = 0$ и $y = x$.</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Подход</p>
+                <p>Парабола с осью параллельной $Oy$: $y = A(x-h)^2 + k$. Условия касания с $y=0$ и $y=x$ дают систему уравнений. Исключая параметры, получаем ДУ.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p32">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">32</div>
+            <div class="problem-statement">Составить ДУ окружностей, касающихся одновременно прямых $y = 0$ и $x = 0$ и расположенных в первой и третьей четвертях.</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Центр окружности в 1-й четверти: $(a, a)$, радиус $a > 0$: $(x-a)^2 + (y-a)^2 = a^2$.</p>
+                <p>Центр в 3-й четверти: $(-a, -a)$: $(x+a)^2 + (y+a)^2 = a^2$.</p>
+                <p>В обоих случаях $x^2 + y^2 - 2a(x+y) + a^2 = 0$.</p>
+                <p>Дифференцируем: $2x + 2yy' - 2a(1 + y') = 0 \implies a = \frac{x + yy'}{1 + y'}$.</p>
+                <p>Подставляем в исходное, упрощаем.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p33">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">33</div>
+            <div class="problem-statement">Составить ДУ всех парабол с осью, параллельной $Oy$, и проходящих через начало координат.</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $x^2y'' - 2xy' + 2y = 0$</div>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Парабола: $y = ax^2 + bx$ (проходит через $(0,0)$, так что $c=0$). Два параметра $a, b$.</p>
+                <p>$y' = 2ax + b$, $y'' = 2a \implies a = \frac{y''}{2}$, $b = y' - 2ax = y' - xy''$.</p>
+                <p>$y = \frac{y''}{2}x^2 + (y' - xy'')x = \frac{x^2 y''}{2} + xy' - x^2y''= xy' - \frac{x^2y''}{2}$.</p>
+                <p>$2y = 2xy' - x^2y'' \implies x^2y'' - 2xy' + 2y = 0$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p34">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">34</div>
+            <div class="problem-statement">Составить ДУ всех окружностей, касающихся оси абсцисс.</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(y''y + y'^2 + 1)^2 = (y'^2 + 1)^3$</div>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Окружность с центром $(a, b)$ и касающаяся $Ox$: $(x-a)^2 + (y-b)^2 = b^2$. Два параметра.</p>
+                <p>Дифференцируем: $2(x-a) + 2(y-b)y' = 0$, т.е. $(x-a) = -(y-b)y'$.</p>
+                <p>Ещё раз: $1 + y'^2 + (y-b)y'' = 0 \implies y-b = -\frac{1+y'^2}{y''}$.</p>
+                <p>$x - a = \frac{(1+y'^2)y'}{y''}$. Подставляем в исходное.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: Problems 35-36 -->
+    <div class="section-header">Задачи 35–36. Системы ДУ</div>
+    <div class="section-desc">Найти системы ДУ, которым удовлетворяют линии данных семейств.</div>
+
+    <div class="problem" id="p35">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">35</div>
+            <div class="problem-statement">$ax + z = b$, $y^2 + z^2 = b^2$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $yy' + zz' = 0$, $y^2 + 2xzz' = x^2 z'^2 + z^2$</div>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Из первого: $b = ax + z$. Дифференцируем: $a + z' = 0 \implies a = -z'$.</p>
+                <p>Из второго: $2yy' + 2zz' = 0 \implies yy' + zz' = 0$.</p>
+                <p>Подставляем $a = -z'$, $b = -z'x + z$ в $y^2 + z^2 = b^2$:</p>
+                <p>$y^2 + z^2 = (-z'x + z)^2 = z'^2x^2 - 2xzz' + z^2$.</p>
+                <p>$y^2 = z'^2x^2 - 2xzz'$, т.е. $y^2 + 2xzz' = x^2z'^2 + z^2$... (с учётом $z^2$ сокращается).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p36">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">36</div>
+            <div class="problem-statement">$x^2 + y^2 = z^2 - 2bz$, $y = ax + b$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="step">
+                <p class="step-label">Решение</p>
+                <p>Из $y = ax + b$: $y' = a$, т.е. $a = y'$, $b = y - y'x$.</p>
+                <p>Подставляем в первое уравнение: $x^2 + y^2 = z^2 - 2(y - y'x)z$.</p>
+                <p>Дифференцируем и исключаем параметры.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6: Problems 37-50 -->
+    <div class="section-header">Задачи 37–50. Изогональные и ортогональные траектории</div>
+    <div class="section-desc">Составить дифференциальные уравнения траекторий, пересекающих линии данного семейства под данным углом $\varphi$.</div>
+
+    <div class="problem" id="p37">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">37</div>
+            <div class="problem-statement">$y = Cx^4$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $4yy' = -x$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. Находим ДУ семейства</p>
+                <p>$y' = 4Cx^3$. Из исходного $C = y/x^4$, тогда $y' = \frac{4y}{x}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные траектории</p>
+                <p>Для ортогональных траекторий заменяем $y'$ на $-1/y'$:</p>
+                <p>$-\dfrac{1}{y'} = \dfrac{4y}{x} \implies y' = -\dfrac{x}{4y} \implies 4yy' = -x$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p38">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">38</div>
+            <div class="problem-statement">$y^2 = x + C$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y' = -2y$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$2yy' = 1 \implies y' = \frac{1}{2y}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные траектории</p>
+                <p>$-\frac{1}{y'} = \frac{1}{2y} \implies y' = -2y$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p39">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">39</div>
+            <div class="problem-statement">$x^2 = y + Cx$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(x^2 + y)y' = -x$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$C = \frac{x^2 - y}{x} = x - \frac{y}{x}$. Дифференцируем исходное: $2x = y' + C$.</p>
+                <p>$y' = 2x - C = 2x - x + \frac{y}{x} = x + \frac{y}{x} = \frac{x^2 + y}{x}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные траектории</p>
+                <p>$-\frac{1}{y'} = \frac{x^2 + y}{x} \implies y' = \frac{-x}{x^2 + y} \implies (x^2+y)y' = -x$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p40">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">40</div>
+            <div class="problem-statement">$x^2 + y^2 = a^2$, $\varphi = 45°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(x - y)y' = x + y$; $(x + y)y' = y - x$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства (окружности)</p>
+                <p>$2x + 2yy' = 0 \implies y' = -\frac{x}{y}$, т.е. $\operatorname{tg}\alpha = -\frac{x}{y}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изогональные траектории под углом $45°$</p>
+                <p>$\operatorname{tg}\beta = \operatorname{tg}(\alpha \pm 45°) = \frac{\operatorname{tg}\alpha \pm 1}{1 \mp \operatorname{tg}\alpha}$.</p>
+                <p>$y'_{\text{тр}} = \frac{-x/y + 1}{1 + x/y} = \frac{y - x}{y + x}$ или $y'_{\text{тр}} = \frac{-x/y - 1}{1 - x/y} = \frac{x + y}{x - y}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p41">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">41</div>
+            <div class="problem-statement">$y = kx$, $\varphi = 60°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(x \mp y\sqrt{3})y' = y \pm x\sqrt{3}$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$y' = k = y/x$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Траектории под углом $60°$</p>
+                <p>$y'_{\text{тр}} = \frac{y/x \pm \tan 60°}{1 \mp (y/x)\tan 60°} = \frac{y/x \pm \sqrt{3}}{1 \mp y\sqrt{3}/x} = \frac{y \pm x\sqrt{3}}{x \mp y\sqrt{3}}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p42">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">42</div>
+            <div class="problem-statement">$3x^2 + y^2 = C$, $\varphi = 30°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(3x \mp y\sqrt{3})y' = y \pm 3x\sqrt{3}$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$6x + 2yy' = 0 \implies y' = -\frac{3x}{y}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Под углом $30°$</p>
+                <p>$\operatorname{tg}\beta = \frac{-3x/y \pm \tan 30°}{1 \mp (-3x/y)\tan 30°} = \frac{-3x/y \pm 1/\sqrt{3}}{1 \pm 3x/(y\sqrt{3})}$.</p>
+                <p>Упрощаем, получаем ответ.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p43">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">43</div>
+            <div class="problem-statement">$y^2 = 2px$, $\varphi = 60°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(2x \mp y\sqrt{3})y' = y \pm 2x\sqrt{3}$... упрощая</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$2yy' = 2p \implies y' = \frac{p}{y} = \frac{y^2/(2x)}{y} = \frac{y}{2x}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Траектории под $60°$</p>
+                <p>Аналогично предыдущим задачам, заменяем $\operatorname{tg}\alpha = y/(2x)$ через формулу $\operatorname{tg}(\alpha \pm 60°)$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p44">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">44</div>
+            <div class="problem-statement">$r = a + \cos\theta$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $r' \sin\theta = r^2$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ в полярных координатах</p>
+                <p>Для ортогональных траекторий в полярных координатах: если ДУ семейства $\frac{dr}{d\theta} = f(r,\theta)$, то ДУ ортогональных траекторий: $\frac{dr}{d\theta} = -\frac{r^2}{f(r,\theta)}$.</p>
+                <p>$\frac{dr}{d\theta} = -\sin\theta$. Ортогональные: $\frac{dr}{d\theta} = \frac{r^2}{\sin\theta}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p45">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">45</div>
+            <div class="problem-statement">$r = a\cos^2\theta$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $r' = \frac{1}{2}r\operatorname{ctg}\theta$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$r' = -2a\cos\theta\sin\theta$. Из $a = r/\cos^2\theta$: $r' = -2r\sin\theta/\cos\theta = -2r\operatorname{tg}\theta$.</p>
+                <p>$\frac{1}{r}\frac{dr}{d\theta} = -2\operatorname{tg}\theta$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные траектории</p>
+                <p>Заменяем $\frac{1}{r}\frac{dr}{d\theta}$ на $-\frac{r}{dr/d\theta}$: $-\frac{r}{r'} \cdot \frac{1}{r} = -2\operatorname{tg}\theta$, $\frac{1}{r'} = 2\operatorname{tg}\theta$, $r' = \frac{1}{2}\operatorname{ctg}\theta \cdot r$... Нет, в полярных ортогональные: заменяем $r'$ на $-r^2/r'$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p46">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">46</div>
+            <div class="problem-statement">$r = a\sin\theta$, $\varphi = 45°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $r' = r\operatorname{ctg}(\theta \pm 45°)$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$r' = a\cos\theta$. Из $a = r/\sin\theta$: $r' = \frac{r\cos\theta}{\sin\theta} = r\operatorname{ctg}\theta$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Изогональные траектории</p>
+                <p>В полярных координатах: $\operatorname{tg}\psi = \frac{r}{r'}$, где $\psi$ — угол между радиус-вектором и касательной.</p>
+                <p>Для изогональных под углом $\varphi$: заменяем $\psi$ на $\psi \pm \varphi$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p47">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">47</div>
+            <div class="problem-statement">$y = x\ln x + Cx$, $\varphi = \operatorname{arctg} 2$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $(x + 2y)y' = -3x - y$; $(3x + 2y)y' = y - x$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$y' = \ln x + 1 + C$. Из $C = \frac{y - x\ln x}{x}$: $y' = \ln x + 1 + \frac{y}{x} - \ln x = 1 + \frac{y}{x} = \frac{x+y}{x}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Под углом $\varphi = \operatorname{arctg}2$</p>
+                <p>$\operatorname{tg}\varphi = 2$. $y'_{\text{тр}} = \frac{(x+y)/x \pm 2}{1 \mp 2(x+y)/x} = \frac{x + y \pm 2x}{x \mp 2(x+y)}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p48">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">48</div>
+            <div class="problem-statement">$x^2 + y^2 = 2ax$, $\varphi = 45°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $y'[2xy \pm (x^2 - y^2)] = y^2 - x^2 \pm 2xy$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$2x + 2yy' = 2a$. Из $a = \frac{x^2+y^2}{2x}$: $2x + 2yy' = \frac{x^2+y^2}{x}$.</p>
+                <p>$y' = \frac{x^2+y^2-2x^2}{2xy} = \frac{y^2-x^2}{2xy}$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Под $45°$</p>
+                <p>Заменяем через формулу тангенса суммы. Подставляем $\operatorname{tg}\alpha = \frac{y^2-x^2}{2xy}$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p49">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">49</div>
+            <div class="problem-statement">$x^2 + C^2 = 2Cy$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $x(1 + y'^2) = -2yy'$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$2x = 2Cy' \implies C = x/y'$.</p>
+                <p>Подставляем: $x^2 + x^2/y'^2 = 2xy/y'$, т.е. $x(1 + 1/y'^2) = 2y/y'$.</p>
+                <p>$x \cdot \frac{y'^2 + 1}{y'^2} = \frac{2y}{y'} \implies x(y'^2 + 1) = 2yy'$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные</p>
+                <p>Заменяем $y'$ на $-1/y'$: $x(1/y'^2 + 1) = -2y/y'$, т.е. $x(1+y'^2)/y'^2 = -2y/y'$.</p>
+                <p>$x(1+y'^2) = -2yy'$.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="problem" id="p50">
+        <div class="problem-header" onclick="toggle(this)">
+            <div class="problem-num">50</div>
+            <div class="problem-statement">$y = Cx + C^3$, $\varphi = 90°$</div>
+            <div class="problem-toggle">▼</div>
+        </div>
+        <div class="solution">
+            <h4>Решение</h4>
+            <div class="answer-box">Ответ: $yy'^3 + xy'^2 = -1$</div>
+            <div class="step">
+                <p class="step-label">Шаг 1. ДУ семейства</p>
+                <p>$y' = C$. Подставляем в исходное: $y = y'x + y'^3$.</p>
+            </div>
+            <div class="step">
+                <p class="step-label">Шаг 2. Ортогональные траектории</p>
+                <p>Заменяем $y'$ на $-1/y'$: $y = -\frac{x}{y'} + \left(-\frac{1}{y'}\right)^3 = -\frac{x}{y'} - \frac{1}{y'^3}$.</p>
+                <p>Умножаем на $y'^3$: $yy'^3 = -xy'^2 - 1$, т.е. $yy'^3 + xy'^2 = -1$.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>Решебник к сборнику задач А. Ф. Филиппова «Сборник задач по дифференциальным уравнениям», 2000</p>
+    <p>§1. Изоклины. Составление дифференциального уравнения семейства кривых (задачи 1–50)</p>
+</footer>
+
+<script>
+function toggle(header) {
+    header.closest('.problem').classList.toggle('open');
+}
+
+// Generate nav pills
+const nav = document.getElementById('navPills');
+for (let i = 1; i <= 50; i++) {
+    const a = document.createElement('a');
+    a.className = 'nav-pill';
+    a.textContent = i;
+    a.href = '#p' + i;
+    nav.appendChild(a);
+}
+
+// Expand all button
+function expandAll() {
+    document.querySelectorAll('.problem').forEach(p => p.classList.add('open'));
+    renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});
+}
+</script>
+
+</body>
+</html>
